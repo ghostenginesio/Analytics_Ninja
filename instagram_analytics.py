@@ -22,6 +22,8 @@ def makeAPICalls(url, endpointParams, debug = 'no'):
     
     data = requests.get(url, endpointParams)
     
+    print(data.content)
+
     return json.loads(data.content)
 
 
