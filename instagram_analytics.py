@@ -206,7 +206,7 @@ def getMediaInsights(params, access_token, instagram_account_id, media_id):
     
     print(media_full)
 
-    return media_full.json()
+    return {"data" :str(media_full)}
 
 
 # GET ALL USER MEDIA INSIGHTS AND STORE

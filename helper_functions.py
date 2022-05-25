@@ -68,7 +68,7 @@ def bulkUpdate_helper(id):
         with open(filename, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
 
-
+        print('Saved json {}'.format(id))
     
     # sql = '''UPDATE app_user SET %s = ? WHERE %s = ?;'''
     # print(sql)
