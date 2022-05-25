@@ -1,3 +1,4 @@
+from logging import exception
 from instagram_analytics import *
 import sqlite3
 import json
@@ -54,7 +55,8 @@ def bulkUpdate_helper(id):
             data['status'] = "Success"
             data['data'] = maintain
             
-        except:
+        except exception as e:
+            print('exception: couldnt get instagram media items', e)
             data = {"status": "couldn't get instagram media items"}
 
         requests.post('https://webhook.site/b28b3d5a-fa4a-49b3-ae77-3734ef3688eb', json= data)
