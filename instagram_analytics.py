@@ -212,10 +212,11 @@ def getMediaInsights(params, access_token, instagram_account_id, media_id):
 
 def getAllUserMediaInsights(params, access_token, instagram_account_id):
     ids = getAllMedia(params, access_token, instagram_account_id)
+    print('ids : ', ids)
     arr = []
     for elem in ids['data']:
         media_id = elem['id']
-        getMediaInsights(params, access_token, instagram_account_id, media_id)
+        arr.append(getMediaInsights(params, access_token, instagram_account_id, media_id))
 
     return {"data": arr}
 

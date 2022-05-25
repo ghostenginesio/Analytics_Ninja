@@ -36,10 +36,14 @@ def bulkUpdate_helper(id):
             profile_insights = getProfileInsights(params, access_token, instagram_account_id)
             all_user_media_insights = getAllUserMediaInsights(params, access_token, instagram_account_id)
 
+            print("profile_insights : ", profile_insights)
+            print("all_user_media_insights : ",all_user_media_insights)
+
             maintain = {
                         "user_insights": profile_insights.json(),
                         "media_insights":all_user_media_insights.json()
                         }
+
             print('maintain ...........................')
             
             print(maintain)
@@ -59,7 +63,7 @@ def bulkUpdate_helper(id):
 
         filename = 'data/' + str(id) + '.json'
         with open(filename, 'w', encoding='utf-8') as f:
-            json.dump(data, f, ensure_ascii=False, indent=4)
+            json.dumps(data, f, ensure_ascii=False, indent=4)
 
 
     
@@ -76,7 +80,9 @@ def getAllData_helper(id):
     filename = 'data/' + str(id) + '.json'
     
     with open(filename, 'r') as f:
-        data = json.dumps(f)
-    
-    return data.json()
+        try:
+            data = json.load(f)
+        except:
+            data = {}
 
+    return data.json()
