@@ -22,7 +22,7 @@ def makeAPICalls(url, endpointParams, debug = 'no'):
     
     data = requests.get(url, endpointParams)
     
-    print(data.content)
+    #print(data.content)
 
     return json.loads(data.content)
 
@@ -220,7 +220,7 @@ def getAllUserMediaInsights(params, access_token, instagram_account_id):
         media_id = elem['id']
         arr.append(getMediaInsights(params, access_token, instagram_account_id, media_id))
 
-    return {"data": arr}
+    return {"data": str(arr)}
 
 def getProfileInsights(params, access_token, instagram_account_id):
     
