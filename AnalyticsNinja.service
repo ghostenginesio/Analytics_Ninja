@@ -1,0 +1,10 @@
+[Unit]
+Description=Analytics Ninja
+After=network.target
+
+[Service]
+User=ghost
+Group=www-data
+WorkingDirectory=/var/www/Analytics_Ninja
+
+ExecStart=/var/www/Analytics_Ninja/genv/bin/gunicorn -c gunicorn.conf.py
