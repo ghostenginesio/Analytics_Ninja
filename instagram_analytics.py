@@ -1,3 +1,4 @@
+from flask import jsonify
 import requests
 import json
 
@@ -307,5 +308,5 @@ def getProfileInsights(params, access_token, instagram_account_id):
     
     print(account_full)
 
-    return account_full.json()
+    return jsonify(account_full)#.json()
 
