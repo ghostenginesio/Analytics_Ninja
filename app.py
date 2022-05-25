@@ -28,17 +28,20 @@ def getAllDetails():
         return {"status": "ok"}
 
 
-@app.route("/<id>", methods = ["GET"])
-def getUserData(id):
-
-    conn = db_connection()
-    cursor = conn.cursor()
-    sql = '''SELECT %s FROM app_user WHERE %s = ?;'''
-    result = cursor.execute(sql % ('data','id',), (id,))
-    data = result.fetchone()[0]
-    conn.close()
+# @app.route("/<id>", methods = ["GET"])
+# def getUserData(id):
     
-    return jsonify(data)
+#     if not id:
+#         return {"Error": "Send user id"}
+
+#     conn = db_connection()
+#     cursor = conn.cursor()
+#     sql = '''SELECT %s FROM app_user WHERE %s = ?;'''
+#     result = cursor.execute(sql % ('data','id',), (id,))
+#     data = result.fetchone()[0]
+#     conn.close()
+    
+#     return jsonify(data)
 
 
 @app.route("/callback_token")
