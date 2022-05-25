@@ -76,7 +76,7 @@ def getAllData_helper(id):
     filename = 'data/' + str(id) + '.json'
     
     with open(filename, 'r') as f:
-        data = json.load(f)
+        data = json.dumps(f)
     
     return data.json()
 
