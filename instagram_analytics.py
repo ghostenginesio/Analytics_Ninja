@@ -52,7 +52,7 @@ def getAccessToken(params, code):
     
     endpointParams = dict()
     url = params['endpoint_base'] + 'oauth/access_token'
-    endpointParams['redirect_uri'] = '''https://analyticsninja.herokuapp.com/callback_token'''
+    endpointParams['redirect_uri'] = '''http://167.99.183.60:5001/callback_token'''
     endpointParams['client_id'] = params['client_id']
     endpointParams['client_secret'] = params['client_secret']
     endpointParams['code'] = code
