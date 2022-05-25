@@ -1,0 +1,34 @@
+#command: 
+    unlink /etc/nginx/site-enabled/default
+#nginx conf:
+    #filename=AnalyticsNinja
+
+    #directory=/etc/nginx/sites-avalilable/
+    #command:
+        - ln -s ~/deployment/Analytics_Ninja /var/www/Analytics_Ninja
+
+    server{/home/ghost/deployments/Analytics_Ninja
+    #command
+        - ln -s /etc/nginx/sites-available/Analytic_Ninja /etc/nginx/sites-enabled/Analytic_Ninja
+        
+#service file:
+#fielname=AnalyticsNinja.service
+#directory=/etc/systemd/system/
+
+
+A[Unit]
+Description=Analytics Ninja
+After=network.target
+
+[Service]
+User=ghost
+Group=www-data
+WorkingDirectory=/var/www/Analytics_Ninja
+
+ExecStart=/var/www/Analytics_Ninja/genv/bin/gunicorn -c gunicorn.conf.py
+
+[Install]
+WantedBy=multi-user.target
+
+
+sudo ln -s ~/deployments/Analytics_Ninja /var/www/Analytics_Ninja
