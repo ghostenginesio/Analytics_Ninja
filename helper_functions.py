@@ -42,8 +42,8 @@ def bulkUpdate_helper(id):
             print("all_user_media_insights : ",all_user_media_insights)
 
             maintain = {
-                        "user_insights": profile_insights.json(),
-                        "media_insights":all_user_media_insights.json()
+                        "user_insights": profile_insights['data'],
+                        "media_insights":all_user_media_insights['data']
                         }
 
             print('maintain ...........................')
@@ -59,14 +59,16 @@ def bulkUpdate_helper(id):
             print('exception: couldnt get instagram media items', e)
             data = {"status": "couldn't get instagram media items"}
 
-        requests.post('https://webhook.site/b28b3d5a-fa4a-49b3-ae77-3734ef3688eb', json= data)
+        # requests.post('https://webhook.site/b28b3d5a-fa4a-49b3-ae77-3734ef3688eb', json= data)
 
         
         # STORE JSON
 
+        data = json.dumps(data, indent = 4)
+
         filename = 'data/' + str(id) + '.json'
         with open(filename, 'w', encoding='utf-8') as f:
-            json.dump(data, f, ensure_ascii=False, indent=4)
+            json.dump(data, f, ensure_ascii=False)
 
         print('Saved json {}'.format(id))
     
