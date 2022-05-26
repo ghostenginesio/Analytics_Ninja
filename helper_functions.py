@@ -90,4 +90,4 @@ def getAllData_helper(id):
         except:
             data = {}
 
-    return data.json()
+    return data#.json()
