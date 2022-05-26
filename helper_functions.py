@@ -31,8 +31,8 @@ def bulkUpdate_helper(id):
     if tup_res is not None:
         try:
             access_token, instagram_account_id = tup_res[0], tup_res[1]
-            print('access_token', 'instagram_account_id')
-            #print(access_token, instagram_account_id)
+            # print('access_token', 'instagram_account_id')
+            # print(access_token, instagram_account_id)
             params = getCreds()
 
             profile_insights = getProfileInsights(params, access_token, instagram_account_id)
@@ -77,4 +77,4 @@ def getAllData_helper(id):
         except:
             data = {}
 
-    return data#.json()
+    return data
