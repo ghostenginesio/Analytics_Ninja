@@ -77,7 +77,7 @@ def bulkUpdate_helper(id):
     # result = cursor.execute(sql % ('data', 'id',), (str(data), id,))
     # conn.close()
 
-    return data
+    return
 
 
 def getAllData_helper(id):
@@ -90,4 +90,4 @@ def getAllData_helper(id):
         except:
             data = {}
 
-    return data #.json()
+    return data.json()

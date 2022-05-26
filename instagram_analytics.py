@@ -206,7 +206,9 @@ def getMediaInsights(params, access_token, instagram_account_id, media_id):
     
     print(media_full)
 
-    return {"data" :str(media_full)}
+    data = json.dumps(media_full, indent = 4)
+
+    return data # {"data" :str(media_full)}
 
 
 # GET ALL USER MEDIA INSIGHTS AND STORE
@@ -220,7 +222,9 @@ def getAllUserMediaInsights(params, access_token, instagram_account_id):
         media_id = elem['id']
         arr.append(getMediaInsights(params, access_token, instagram_account_id, media_id))
 
-    return {"data": str(arr)}
+    data = json.dumps(arr, indent = 4)
+
+    return data #{"data": str(arr)}
 
 def getProfileInsights(params, access_token, instagram_account_id):
     
@@ -307,5 +311,8 @@ def getProfileInsights(params, access_token, instagram_account_id):
     
     #print(account_full)
 
-    return {"data": str(account_full)}
+    data = json.dumps(account_full, indent = 4)
+
+
+    return data #{"data": str(account_full)}
 
