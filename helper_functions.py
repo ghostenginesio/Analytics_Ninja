@@ -42,8 +42,8 @@ def bulkUpdate_helper(id):
             print("all_user_media_insights : ",all_user_media_insights)
 
             maintain = {
-                        "user_insights": profile_insights['data'],
-                        "media_insights":all_user_media_insights['data']
+                        "user_insights": profile_insights.json(),
+                        "media_insights":all_user_media_insights.json()#['data']
                         }
 
             print('maintain ...........................')
