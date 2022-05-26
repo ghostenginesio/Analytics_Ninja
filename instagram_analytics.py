@@ -146,7 +146,7 @@ def getMediaDetails(params, access_token, media_id):
 
 def getMediaInsights(params, access_token, instagram_account_id, media_id):
 
-    media_full = dict()
+    media_full = {}
     media_full['instagram_account_id'] = instagram_account_id
     media_full['media_id'] = media_id
     params['access_token'] = access_token
@@ -202,13 +202,8 @@ def getMediaInsights(params, access_token, instagram_account_id, media_id):
       media_full['saved'] = saved['data'][0]['values'][0]['value']
     except:
       pass  
-    
-    
-    print(media_full)
 
-    data = json.dumps(media_full, indent = 4)
-
-    return data # {"data" :str(media_full)}
+    return media_full
 
 
 # GET ALL USER MEDIA INSIGHTS AND STORE
@@ -216,19 +211,17 @@ def getMediaInsights(params, access_token, instagram_account_id, media_id):
 
 def getAllUserMediaInsights(params, access_token, instagram_account_id):
     ids = getAllMedia(params, access_token, instagram_account_id)
-    print('ids : ', ids)
+    # print('ids : ', ids)
     arr = []
     for elem in ids['data']:
         media_id = elem['id']
-        arr.append(json.dumps(getMediaInsights(params, access_token, instagram_account_id, media_id), indent = 4))
+        arr.append(getMediaInsights(params, access_token, instagram_account_id, media_id))
 
-    data = json.dumps(arr, indent = 4)
-
-    return data #{"data": str(arr)}
+    return arr
 
 def getProfileInsights(params, access_token, instagram_account_id):
     
-    account_full = dict()
+    account_full = {}
     account_full['instagram_account_id'] = instagram_account_id
     params['access_token'] = access_token
 
@@ -308,11 +301,6 @@ def getProfileInsights(params, access_token, instagram_account_id):
       account_full['visits_per_impression'] = visits_per_impression
     except:
       pass  
-    
-    #print(account_full)
 
-    data = json.dumps(account_full, indent = 4)
-
-
-    return data #{"data": str(account_full)}
+    return account_full
 
