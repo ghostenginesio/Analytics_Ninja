@@ -64,9 +64,6 @@ def bulkUpdate_helper(id):
         except exception as e:
             print('exception: couldnt get instagram media items', e)
             data = {"status": "couldn't get instagram media items"}
-
-        # requests.post('https://webhook.site/b28b3d5a-fa4a-49b3-ae77-3734ef3688eb', json= data)
-
         
         # STORE JSON
 
