@@ -37,23 +37,29 @@ def bulkUpdate_helper(id):
 
             profile_insights = getProfileInsights(params, access_token, instagram_account_id)
             print("profile_insights : ", profile_insights)
-            
+
+
             all_user_media_insights = getAllUserMediaInsights(params, access_token, instagram_account_id)
             print("all_user_media_insights : ",all_user_media_insights)
 
+            profile_insights = json.dumps(profile_insights, indent = 4)
+            all_user_media_insights = json.dumps(all_user_media_insights, indent = 4)
+            
             maintain = {
-                        "user_insights": profile_insights,
-                        "media_insights": all_user_media_insights#['data']
+                        "user_insights": profile_insights.json(),
+                        "media_insights": all_user_media_insights.json()#['data']
                         }
 
             print('maintain ...........................')
             
             print(maintain)
+
+            maintain = json.dumps(maintain, indent = 4)
             
             data = dict()
             
             data['status'] = "Success"
-            data['data'] = maintain
+            data['data'] = maintain.json()
             
         except exception as e:
             print('exception: couldnt get instagram media items', e)

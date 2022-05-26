@@ -220,7 +220,7 @@ def getAllUserMediaInsights(params, access_token, instagram_account_id):
     arr = []
     for elem in ids['data']:
         media_id = elem['id']
-        arr.append(getMediaInsights(params, access_token, instagram_account_id, media_id))
+        arr.append(json.dumps(getMediaInsights(params, access_token, instagram_account_id, media_id), indent = 4))
 
     data = json.dumps(arr, indent = 4)
 
