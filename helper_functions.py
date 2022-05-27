@@ -78,3 +78,66 @@ def getAllData_helper(id):
             data = {}
 
     return data
+
+
+def bulk_upload_use_IG_Account_ID(instagram_account_id):
+    conn = db_connection()
+    cursor = conn.cursor()
+    sql = '''SELECT %s FROM app_user WHERE %s = ?;'''
+    result = cursor.execute(sql % ('access_token','instagram_account_id',), (instagram_account_id,))
+    tup_res = result.fetchone()
+    conn.close()
+    #print('tup_res : ', tup_res)
+    
+    if tup_res is not None:
+        try:
+            access_token, instagram_account_id = tup_res[0], tup_res[1]
+            # print('access_token', 'instagram_account_id')
+            # print(access_token, instagram_account_id)
+            params = getCreds()
+
+            profile_insights = getProfileInsights(params, access_token, instagram_account_id)
+            # print("profile_insights : ", profile_insights)
+
+            all_user_media_insights = getAllUserMediaInsights(params, access_token, instagram_account_id)
+            # print("all_user_media_insights : ",all_user_media_insights)            
+            
+            data = {}
+
+            data['status'] = "Success"
+            data['user_insights'] = profile_insights
+            data['media_insights'] = all_user_media_insights
+            
+        except exception as e:
+            print('exception: couldnt get instagram media items', e)
+            data = {"status": "couldn't get instagram media items"}
+        
+        # STORE JSON
+
+        filename = 'data/' + str(id) + '.json'
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
+
+        print('Saved json {}'.format(id))
+
+    
+
+def getAllData_helper_ig_id(instagram_account_id):
+    
+    conn = db_connection()
+    cursor = conn.cursor()
+    sql = '''SELECT %s FROM app_user WHERE %s = ?;'''
+    result = cursor.execute(sql % ('id','instagram_account_id',), (instagram_account_id,))
+    tup_res = result.fetchone()
+    id = tup_res[0]
+    conn.close()    
+    
+    filename = 'data/' + str(id) + '.json'
+    
+    with open(filename, 'r') as f:
+        try:
+            data = json.load(f)
+        except:
+            data = {}
+
+    return data

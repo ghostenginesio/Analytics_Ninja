@@ -50,13 +50,13 @@ def getCreds():
 
 # EXCHANGE CODE FOR ACCESS TOKEN
 
-def getAccessToken(params, code):
+def getAccessToken(params, client_id, client_secret, code):
     
     endpointParams = dict()
     url = params['endpoint_base'] + 'oauth/access_token'
     endpointParams['redirect_uri'] = '''http://167.99.183.60:5001/callback_token'''
-    endpointParams['client_id'] = params['client_id']
-    endpointParams['client_secret'] = params['client_secret']
+    endpointParams['client_id'] = client_id
+    endpointParams['client_secret'] = client_secret
     endpointParams['code'] = code
     
     return makeAPICalls(url, endpointParams)    
@@ -76,12 +76,12 @@ def getDebugToken(params, access_token):
 
 # EXCHANGE ACCESS TOKENS TO LIFETIME
 
-def getLifetimeToken(params, access_token):
+def getLifetimeToken(params, client_id, client_secret, access_token):
     
     endpointParams = dict() 
     endpointParams['grant_type'] = 'fb_exchange_token'
-    endpointParams['client_id'] = params['client_id']
-    endpointParams['client_secret'] = params['client_secret']
+    endpointParams['client_id'] = client_id
+    endpointParams['client_secret'] = client_secret
     endpointParams['fb_exchange_token'] = access_token
     url = params['endpoint_base'] + 'oauth/access_token'
     

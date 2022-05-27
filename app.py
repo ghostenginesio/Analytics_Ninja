@@ -16,7 +16,7 @@ def getAllDetails():
     if request.method == "GET":
         cursor = conn.execute("SELECT * FROM app_user")
         data = [
-            dict(id=row[0], user_id = row[3], instagram_account_id = row[4])
+            dict(id=row[0], client_id = row[1], user_id = row[5], instagram_account_id = row[6])
             for row in cursor.fetchall()
         ]
         
@@ -56,8 +56,10 @@ def callback_token():
             print("request.args['code'] :", request.args['code'])
             code = request.args['code']
             print('code : ', code)
+            client_secret = request.args['client_secret']
+            client_id = request.args['client_id']
             params = getCreds()
-            token_json = getAccessToken(params, code)
+            token_json = getAccessToken(params, client_id, client_secret, code)
             print(token_json)
             access_token = token_json['access_token']
             print('access_token : ', access_token)
@@ -66,7 +68,7 @@ def callback_token():
             access_token = 'Placeholder'
         
         try:
-            life_access_token_json = getLifetimeToken(params, access_token)
+            life_access_token_json = getLifetimeToken(params, client_id, client_secret, access_token)
             print('life_access_token_json : ', life_access_token_json)
             access_token = life_access_token_json['access_token']
             print('life_access_token : ', access_token)
@@ -98,23 +100,34 @@ def callback_token():
         cursor = conn.cursor()
         sql = '''INSERT INTO app_user (code, access_token, user_id, instagram_account_id) VALUES (?,?,?,?);'''
         print(sql)
-        result = cursor.execute(sql, (code, access_token, user_id, instagram_account_id))
+        result = cursor.execute(sql, (client_id, client_secret, code, access_token, user_id, instagram_account_id))
         print(result)
         conn.commit()
         conn.close()
 
-        data = dict()
+        data = {}
+        data['client_id'] = client_id
+        data['client_secret'] = client_secret
         data['code'] = code
         data['access_token'] = access_token
         data['user_id'] = user_id
         data['instagram_account_id'] = instagram_account_id
 
-    return {"status": "success", "data": str(data)}         
+    return {"status": "success", "data": jsonify(data)}         
 
 
 @app.route("/bulk_update/<id>",  methods = ["GET"])
 def bulkUpdate(id):
     thread = Thread(target=bulkUpdate_helper, args=(id,))
+    thread.daemon = True
+    thread.start()
+    return jsonify({'thread_name': str(thread.name),
+                    'started': True})
+
+
+@app.route("/bulk_update_ig_id/<instagram_account_id>",  methods = ["GET"])
+def bulkUpdate_ig_id(instagram_account_id):
+    thread = Thread(target=bulk_upload_use_IG_Account_ID, args=(instagram_account_id,))
     thread.daemon = True
     thread.start()
     return jsonify({'thread_name': str(thread.name),
@@ -127,30 +140,40 @@ def allUserDetails(id):
     return jsonify(data)
 
 
+@app.route("/all_user_details_ig_id/<instagram_account_id>",  methods = ["GET"])
+def allUserDetails(instagram_account_id):
+    data = getAllData_helper(instagram_account_id)
+    return jsonify(data)
+
+
 @app.route("/manual_upload", methods = ['POST'])
 def manualUpload():
     code = request.args['code']
     access_token = request.args['access_token']
     user_id = request.args['user_id']
     instagram_account_id = request.args['instagram_account_id']
+    client_id = request.args['client_id']
+    client_secret = request.args['client_secret']
     
     conn = db_connection()
     cursor = conn.cursor()
 
-    sql = '''INSERT INTO app_user (code, access_token, user_id, instagram_account_id) VALUES (?,?,?,?);'''
+    sql = '''INSERT INTO app_user (client_id, client_secret, code, access_token, user_id, instagram_account_id) VALUES (?,?,?,?,?,?);'''
     print(sql)
-    result = cursor.execute(sql, (code, access_token, user_id, instagram_account_id))
+    result = cursor.execute(sql, (client_id, client_secret, code, access_token, user_id, instagram_account_id))
     print(result)
     conn.commit()
     conn.close()
 
-    data = dict()
+    data = {}
+    data['client_id'] = client_id
+    data['client_secret'] = client_secret    
     data['code'] = code
     data['access_token'] = access_token
     data['user_id'] = user_id
     data['instagram_account_id'] = instagram_account_id
 
-    return {"status": "success", "data": str(data)}    
+    return {"status": "success", "data": jsonify(data)}    
 
 ########################
 #### MAIN FUNCTION #####
