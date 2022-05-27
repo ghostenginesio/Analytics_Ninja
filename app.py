@@ -159,9 +159,10 @@ def manualUpload():
     cursor = conn.cursor()
 
     sql = '''INSERT INTO app_user (client_id, client_secret, code, access_token, user_id, instagram_account_id) VALUES (?,?,?,?,?,?);'''
-    print(sql)
+    # print(sql)
     result = cursor.execute(sql, (client_id, client_secret, code, access_token, user_id, instagram_account_id))
-    print(result)
+    # print(result)
+
     conn.commit()
     conn.close()
 

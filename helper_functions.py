@@ -91,7 +91,7 @@ def bulk_upload_use_IG_Account_ID(instagram_account_id):
     
     if tup_res is not None:
         try:
-            access_token, instagram_account_id = tup_res[0], tup_res[1]
+            access_token = tup_res[0]
             # print('access_token', 'instagram_account_id')
             # print(access_token, instagram_account_id)
             params = getCreds()
