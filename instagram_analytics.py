@@ -32,10 +32,10 @@ def makeAPICalls(url, endpointParams, debug = 'no'):
 def getCreds():
     
     params = dict()
-    #params['client_id'] = '392864249398762'                  # client id
-    #params['client_secret'] = '8d6a8470330761066754fd9d53dd2e10'     # client secret
-    params['client_id'] = '2297717690379584'                  # client id
-    params['client_secret'] = '93c97415a01a82675f61dba8ebc67eca'     # client secret
+    # params['client_id'] = '392864249398762'                  # client id
+    # params['client_secret'] = '8d6a8470330761066754fd9d53dd2e10'     # client secret
+    # params['client_id'] = '2297717690379584'                  # client id
+    # params['client_secret'] = '93c97415a01a82675f61dba8ebc67eca'     # client secret
     params['graph_domain'] = 'https://graph.facebook.com'
     params['graph_version'] = 'v13.0'
     params['endpoint_base'] = params['graph_domain'] + '/' + params['graph_version'] + '/'
