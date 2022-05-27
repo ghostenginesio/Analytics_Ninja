@@ -113,7 +113,7 @@ def callback_token():
         data['user_id'] = user_id
         data['instagram_account_id'] = instagram_account_id
 
-    return {"status": "success", "data": jsonify(data)}         
+    return {"status": "success", "data": data}         
 
 
 @app.route("/bulk_update/<id>",  methods = ["GET"])
@@ -173,7 +173,7 @@ def manualUpload():
     data['user_id'] = user_id
     data['instagram_account_id'] = instagram_account_id
 
-    return {"status": "success", "data": jsonify(data)}    
+    return {"status": "success", "data": data}    
 
 ########################
 #### MAIN FUNCTION #####
