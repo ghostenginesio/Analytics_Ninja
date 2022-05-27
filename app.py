@@ -141,8 +141,8 @@ def allUserDetails(id):
 
 
 @app.route("/all_user_details_ig_id/<instagram_account_id>",  methods = ["GET"])
-def allUserDetails(instagram_account_id):
-    data = getAllData_helper(instagram_account_id)
+def allUserDetails_ig_id(instagram_account_id):
+    data = getAllData_helper_ig_id(instagram_account_id)
     return jsonify(data)
 
 
