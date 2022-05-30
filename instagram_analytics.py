@@ -127,19 +127,23 @@ def selfDetailsAccounts(params, access_token):
 # GET ALL MEDIA OF INSTAGRAM
 
 def getAllMedia(params, access_token, instagram_account_id):
+    
     url = params['endpoint_base'] + str(instagram_account_id) + '/media'
     endpointParams = dict()
     endpointParams['access_token'] = access_token
+    
     return makeAPICalls(url, endpointParams)
 
 
 # GET MEDIA DETAILS
  
 def getMediaDetails(params, access_token, media_id):
+    
     url = params['endpoint_base'] + str(media_id)
     endpointParams = dict()
     endpointParams['access_token'] = access_token
     endpointParams['fields'] = 'id,media_url,permalink,timestamp,caption'
+    
     return makeAPICalls(url, endpointParams)         
 
 # GET COMPLETE MEDIA INSIGHTS
@@ -147,8 +151,10 @@ def getMediaDetails(params, access_token, media_id):
 def getMediaInsights(params, access_token, instagram_account_id, media_id):
 
     media_full = {}
-    media_full['instagram_account_id'] = instagram_account_id
-    media_full['media_id'] = media_id
+    
+    # media_full['instagram_account_id'] = instagram_account_id
+    # media_full['media_id'] = media_id
+    
     params['access_token'] = access_token
 
     url = params['endpoint_base'] + str(media_id)
@@ -158,7 +164,7 @@ def getMediaInsights(params, access_token, instagram_account_id, media_id):
       endpointParams['fields'] = 'id,media_url,permalink,timestamp,caption'
       endpointParams['access_token'] = params['access_token']
       media_details = makeAPICalls(url, endpointParams)
-      media_full['caption'] = media_details['caption']
+      # media_full['caption'] = media_details['caption']
       media_full['media_url'] = media_details['media_url']
       media_full['timestamp'] = media_details['timestamp']  
     except:
@@ -166,42 +172,81 @@ def getMediaInsights(params, access_token, instagram_account_id, media_id):
 
     url = params['endpoint_base'] + str(media_id) + '/insights'
 
-    try:
-      endpointParams = dict()
-      endpointParams['metric'] = 'impressions'
-      endpointParams['period'] = 'lifetime' 
-      endpointParams['access_token'] = params['access_token'] 
-      impressions = makeAPICalls(url, endpointParams)
-      media_full['impressions'] = impressions['data'][0]['values'][0]['value']
-    except:
-      pass  
+    # try:
+    #   endpointParams = dict()
+    #   endpointParams['metric'] = 'impressions'
+    #   endpointParams['period'] = 'lifetime' 
+    #   endpointParams['access_token'] = params['access_token'] 
+    #   impressions = makeAPICalls(url, endpointParams)
+    #   media_full['impressions'] = impressions['data'][0]['values'][0]['value']
+    # except:
+    #   pass  
+
+    # reach
 
     try:
       endpointParams = dict()
       endpointParams['metric'] = 'reach'
       endpointParams['access_token'] = params['access_token']
       reach = makeAPICalls(url, endpointParams)
-      media_full['reach'] = reach['data'][0]['values'][0]['value']
+      reach = reach['data'][0]['values'][0]['value']
+      media_full['reach'] = reach
     except:
       pass  
 
-    try:
-      endpointParams = dict()
-      endpointParams['metric'] = 'engagement'
-      endpointParams['access_token'] = params['access_token']
-      engagement = makeAPICalls(url, endpointParams)
-      media_full['engagement'] = engagement['data'][0]['values'][0]['value']
-    except:
-      pass  
+    # try:
+    #   endpointParams = dict()
+    #   endpointParams['metric'] = 'engagement'
+    #   endpointParams['access_token'] = params['access_token']
+    #   engagement = makeAPICalls(url, endpointParams)
+    #   media_full['engagement'] = engagement['data'][0]['values'][0]['value']
+    # except:
+    #   pass  
+
+    # saves
 
     try:
       endpointParams = dict()
       endpointParams['metric'] = 'saved'
       endpointParams['access_token'] = params['access_token']
       saved = makeAPICalls(url, endpointParams)
-      media_full['saved'] = saved['data'][0]['values'][0]['value']
+      saved = saved['data'][0]['values'][0]['value']
+      media_full['saved'] = saved
     except:
       pass  
+
+    # Comments
+
+    url = params['endpoint_base'] + str(media_id)
+
+    try:
+      endpointParams = dict()
+      endpointParams['fields'] = 'comments_count'
+      endpointParams['access_token'] = params['access_token']
+      comments = makeAPICalls(url, endpointParams)
+      comments = comments['data']
+      media_full['comments'] = comments
+    except:
+      pass
+
+    # Comments per reach
+
+    try:
+      comments_per_reach = comments/reach
+      media_full['comments_per_reach'] = comments_per_reach
+    except:
+      pass 
+
+    # Saves per reach
+
+    try:
+      saves_per_reach = saved/reach
+      media_full['saves_per_reach'] = saves_per_reach
+    except:
+      pass     
+
+    # TO DO: Shares
+    # TO DO: Shares per reach
 
     return media_full
 
@@ -222,21 +267,21 @@ def getAllUserMediaInsights(params, access_token, instagram_account_id):
 def getProfileInsights(params, access_token, instagram_account_id):
     
     account_full = {}
-    account_full['instagram_account_id'] = instagram_account_id
+    # account_full['instagram_account_id'] = instagram_account_id
     params['access_token'] = access_token
 
     url = params['endpoint_base'] + str(instagram_account_id) + '/insights'
     
-    try:
-      endpointParams = dict()
-      endpointParams['metric'] = 'impressions'
-      endpointParams['period'] = 'day' 
-      endpointParams['access_token'] = params['access_token'] 
-      impressions =  makeAPICalls(url, endpointParams)
-      impressions = impressions['data'][0]['values'][0]['value']
-      account_full['impressions'] = impressions
-    except:
-      pass
+    # try:
+    #   endpointParams = dict()
+    #   endpointParams['metric'] = 'impressions'
+    #   endpointParams['period'] = 'day' 
+    #   endpointParams['access_token'] = params['access_token'] 
+    #   impressions =  makeAPICalls(url, endpointParams)
+    #   impressions = impressions['data'][0]['values'][0]['value']
+    #   account_full['impressions'] = impressions
+    # except:
+    #   pass
     
 
     try:
@@ -285,22 +330,24 @@ def getProfileInsights(params, access_token, instagram_account_id):
       pass  
     
     try:
-      followers_per_impression = follower_count/impressions * 100
-      account_full['followers_per_impression'] = followers_per_impression
+      followers_per_impression = follower_count/reach * 100
+      account_full['followers_per_reach'] = followers_per_impression
     except:
       pass  
 
     try:
-      website_taps_per_impression = website_clicks/impressions * 100
-      account_full['website_taps_per_impression'] = website_taps_per_impression
+      website_taps_per_impression = website_clicks/reach * 100
+      account_full['website_taps_per_reach'] = website_taps_per_impression
     except:
       pass  
     
     try:
-      visits_per_impression = profile_views/impressions * 100
-      account_full['visits_per_impression'] = visits_per_impression
+      visits_per_impression = profile_views/reach * 100
+      account_full['visits_per_reach'] = visits_per_impression
     except:
       pass  
+
+    # 
 
     return account_full
 
