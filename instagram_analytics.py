@@ -161,12 +161,14 @@ def getMediaInsights(params, access_token, instagram_account_id, media_id):
     
     try:
       endpointParams = dict()
-      endpointParams['fields'] = 'id,media_url,permalink,timestamp,caption'
+      endpointParams['fields'] = 'id,media_url,permalink,timestamp,caption,comments_count'
       endpointParams['access_token'] = params['access_token']
       media_details = makeAPICalls(url, endpointParams)
       # media_full['caption'] = media_details['caption']
       media_full['media_url'] = media_details['media_url']
       media_full['timestamp'] = media_details['timestamp']  
+      comments = media_details['comments_count'] 
+      media_full['comments_count'] = comments
     except:
       pass  
 
@@ -214,20 +216,6 @@ def getMediaInsights(params, access_token, instagram_account_id, media_id):
       media_full['saved'] = saved
     except:
       pass  
-
-    # Comments
-
-    url = params['endpoint_base'] + str(media_id)
-
-    try:
-      endpointParams = dict()
-      endpointParams['fields'] = 'comments_count'
-      endpointParams['access_token'] = params['access_token']
-      comments = makeAPICalls(url, endpointParams)
-      comments = comments['data']
-      media_full['comments'] = comments
-    except:
-      pass
 
     # Comments per reach
 
