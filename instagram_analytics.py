@@ -347,7 +347,7 @@ def getProfileInsights(params, access_token, instagram_account_id):
     except:
       pass  
 
-    # 
+    account_full = [account_full]
 
     return account_full
 
