@@ -116,13 +116,13 @@ def callback_token():
     return {"status": "success", "data": data}         
 
 
-@app.route("/bulk_update/<id>",  methods = ["GET"])
-def bulkUpdate(id):
-    thread = Thread(target=bulkUpdate_helper, args=(id,))
-    thread.daemon = True
-    thread.start()
-    return jsonify({'thread_name': str(thread.name),
-                    'started': True})
+# @app.route("/bulk_update/<id>",  methods = ["GET"])
+# def bulkUpdate(id):
+#     thread = Thread(target=bulkUpdate_helper, args=(id,))
+#     thread.daemon = True
+#     thread.start()
+#     return jsonify({'thread_name': str(thread.name),
+#                     'started': True})
 
 
 @app.route("/bulk_update_ig_id/<instagram_account_id>",  methods = ["GET"])
@@ -134,10 +134,10 @@ def bulkUpdate_ig_id(instagram_account_id):
                     'started': True})
 
 
-@app.route("/all_user_details/<id>",  methods = ["GET"])
-def allUserDetails(id):
-    data = getAllData_helper(id)
-    return jsonify(data)
+# @app.route("/all_user_details/<id>",  methods = ["GET"])
+# def allUserDetails(id):
+#     data = getAllData_helper(id)
+#     return jsonify(data)
 
 
 @app.route("/all_user_details_ig_id/<instagram_account_id>",  methods = ["GET"])
