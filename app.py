@@ -188,7 +188,7 @@ def post_to_airtable(instagram_account_id):
         requests_session = requests.session()
         requests_session.headers.update({'Content-Type': 'application/json'})
         requests_session.headers.update({'charset':'utf-8'})
-        requests_session.post(url=url, data=jsonify(data2))
+        requests_session.post(url=url, data={'data': data2})
     except Exception as e:
         print(e)
     
