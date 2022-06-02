@@ -183,8 +183,14 @@ def post_to_airtable(instagram_account_id):
     url = 'https://hooks.airtable.com/workflows/v1/genericWebhook/appWbwpITbvT6NMYv/wflJnWkQ8pk0S81W3/wtrPyrotY4lOTOwEb'
     data = getAllData_helper_ig_id(instagram_account_id)
 
-    data2 = data['media_insights']
-    requests.post(url=url, data=data2)
+    try:
+        data2 = data['media_insights']
+        requests_session = requests.session()
+        requests_session.headers.update({'Content-Type': 'application/json'})
+        requests_session.headers.update({'charset':'utf-8'})
+        requests_session.post(url=url, data=jsonify(data2))
+    except:
+        pass
     
     return jsonify(data)
 
