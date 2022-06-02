@@ -179,7 +179,7 @@ def manualUpload():
 # POST DATA TO AIRTABLE
 
 @app.route("/post_to_airtable/<instagram_account_id>",  methods = ["GET"])
-def allUserDetails_ig_id(instagram_account_id):
+def post_to_airtable(instagram_account_id):
     url = 'https://hooks.airtable.com/workflows/v1/genericWebhook/appWbwpITbvT6NMYv/wflJnWkQ8pk0S81W3/wtrPyrotY4lOTOwEb'
     data = getAllData_helper_ig_id(instagram_account_id)
     requests.post(url=url, data=data)
