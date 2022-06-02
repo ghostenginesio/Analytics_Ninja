@@ -182,7 +182,9 @@ def manualUpload():
 def post_to_airtable(instagram_account_id):
     url = 'https://hooks.airtable.com/workflows/v1/genericWebhook/appWbwpITbvT6NMYv/wflJnWkQ8pk0S81W3/wtrPyrotY4lOTOwEb'
     data = getAllData_helper_ig_id(instagram_account_id)
-    requests.post(url=url, data=data)
+
+    data2 = data['media_insights']
+    requests.post(url=url, data=data2)
     
     return jsonify(data)
 
