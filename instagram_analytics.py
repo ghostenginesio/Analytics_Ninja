@@ -153,7 +153,7 @@ def getMediaInsights(params, access_token, instagram_account_id, media_id):
     media_full = {}
     
     # media_full['instagram_account_id'] = instagram_account_id
-    # media_full['media_id'] = media_id
+    media_full['media_id'] = media_id
     
     params['access_token'] = access_token
 
