@@ -142,6 +142,7 @@ def getAllData_helper_ig_id(instagram_account_id):
 
     return data
 
+
 def post_to_zapier():
     url = 'https://hooks.zapier.com/hooks/catch/10889080/ba1et9j/'
     data = getAllData_helper_ig_id('17841448720108201')
