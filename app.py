@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 from instagram_analytics import *
 from threading import Thread
 from helper_functions import *
+from apscheduler.schedulers.background import BackgroundScheduler
 
 app = Flask(__name__)
 
@@ -199,5 +200,20 @@ def post_to_airtable(instagram_account_id):
 #### MAIN FUNCTION #####
 ########################
 
+
+scheduler = BackgroundScheduler()
+
+def post_to_zapier():
+    url = 'https://hooks.zapier.com/hooks/catch/10889080/ba1et9j/'
+    data = getAllData_helper_ig_id('17841448720108201')
+    data2 = data['media_insights']
+    requests_session = requests.session()
+    requests_session.headers.update({'Content-Type': 'application/json'})
+    requests_session.headers.update({'charset':'utf-8'})
+    requests_session.post(url=url, data={'data': data2})
+    return 'Success'
+
+
 if __name__ == "__main__":
-  app.run(host='0.0.0.0', port=8080, debug=True) 
+    app.run(host='0.0.0.0', port=8080, debug=True) 
+    scheduler.add_job(post_to_zapier, 'interval', minutes=2, id='1001')
