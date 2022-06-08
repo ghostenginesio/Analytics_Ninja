@@ -206,7 +206,7 @@ scheduler = BackgroundScheduler()
 scheduler.add_job(
     lambda: post_to_zapier(),
     "interval",
-    minutes=1,
+    minutes = 2,
     id='my_job_id'
 )
 
