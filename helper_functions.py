@@ -147,11 +147,16 @@ def post_to_zapier():
     url = 'https://hooks.zapier.com/hooks/catch/10889080/ba1et9j/'
     data = getAllData_helper_ig_id('17841448720108201')
     data2 = data['media_insights']
-    requests_session = requests.session()
-    requests_session.headers.update({'Content-Type': 'application/json'})
-    requests_session.headers.update({'charset':'utf-8'})
-    requests_session.post(url=url, data={'data': data2})
+    # requests_session = requests.session()
+    headers = {'Content-Type': 'application/json'}
+    response = requests.post(url, data=json.dumps({'data': data2}), headers=headers)
     print('Scheduler is working...')
-    print(data2)
+    print(response.content)
+    # requests_session.headers.update({'Content-Type': 'application/json'})
+    # requests_session.headers.update({'charset':'utf-8'})
+    # requests_session.post(url=url, data={'data': data2})
+    # print('Scheduler is working...')
+    # print(data2)
+    
     return 'Success'
 
