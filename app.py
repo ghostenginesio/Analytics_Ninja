@@ -211,6 +211,8 @@ def post_to_zapier():
     requests_session.headers.update({'Content-Type': 'application/json'})
     requests_session.headers.update({'charset':'utf-8'})
     requests_session.post(url=url, data={'data': data2})
+    print('Scheduler is working...')
+    print(data2)
     return 'Success'
 
 
